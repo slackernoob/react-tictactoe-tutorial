@@ -97,7 +97,10 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
     // console.log(calculateWinner(squares));
-    if (calculateWinner(squares) === "X"|| squares[i] === "X" || squares[i] === "O") {
+    console.log(squares);
+    if (calculateWinner(squares) || squares[i]==='X' || squares[i]==='O') {
+      console.log(calculateWinner(squares));
+      console.log("cant press")
       return;
     }
     // squares[i] = 'X'; 
@@ -167,6 +170,8 @@ class Game extends React.Component {
     let status;
     if (winner) {
       status = "Winner: " + winner;
+    } else if (this.state.stepNumber === 9) {
+      status = "Its a draw."
     } else {
       status = "Next player: " + (this.state.nextMoveIsX ? "X" : "O");
     }
@@ -182,7 +187,7 @@ class Game extends React.Component {
         
         <div className="game-board">
           <Board 
-            squares={markWinningCombo(current.squares)}
+            squares={markWinningCombo(current.squares.slice())}
             onClick={(i) => this.handleClick(i)}
           />
         </div>
